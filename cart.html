@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Cart - FoodieHub</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      padding: 2em;
+      background-color: #fdfaf5;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1em;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 2em;
+      background-color: white;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 1em;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #faae2b;
+      color: white;
+    }
+    td button {
+      padding: 0.3em 0.6em;
+      margin: 0 3px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .increase { background-color: #4caf50; color: white; }
+    .decrease { background-color: #f44336; color: white; }
+    .remove { background-color: #555; color: white; }
+    .total {
+      text-align: right;
+      font-size: 1.3em;
+      margin-bottom: 1em;
+    }
+    .checkout-btn {
+      display: block;
+      width: 100%;
+      padding: 1em;
+      background-color: #faae2b;
+      color: white;
+      font-weight: bold;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .checkout-btn:hover {
+      background-color: #e59600;
+    }
+    .back-home {
+      display: inline-block;
+      margin-top: 1.5em;
+      text-align: center;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      font-size: 1em;
+      display: block;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Your Cart 🛒</h2>
+  <table id="cartTable">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Price (₹)</th>
+        <th>Quantity</th>
+        <th>Total (₹)</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <div class="total" id="grandTotal">Grand Total: ₹0</div>
+  <a href="checkout.html">
+  <button class="checkout-btn">Proceed to Checkout</button>
+</a>
+
+  <a href="index.html" class="back-home">← Back to Home</a>
+   
+  <script>
+  let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+  let userKey = loggedInUser ? `cart_${loggedInUser.email}` : "cart_guest";
+  let cart = JSON.parse(localStorage.getItem(userKey)) || [];
+
+  const tbody = document.querySelector("#cartTable tbody");
+  const grandTotalEl = document.getElementById("grandTotal");
+
+  function updateCartPage() {
+    tbody.innerHTML = "";
+    let total = 0;
+
+    cart.forEach((item, index) => {
+      const itemTotal = item.quantity * item.price;
+      total += itemTotal;
+
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${item.name}</td>
+        <td>₹${item.price}</td>
+        <td>${item.quantity}</td>
+        <td>₹${itemTotal}</td>
+        <td>
+          <button class="increase" onclick="changeQty(${index}, 1)">+</button>
+          <button class="decrease" onclick="changeQty(${index}, -1)">-</button>
+          <button class="remove" onclick="removeItem(${index})">🗑️</button>
+        </td>
+      `;
+      tbody.appendChild(row);
+    });
+
+    grandTotalEl.textContent = `Grand Total: ₹${total}`;
+    localStorage.setItem(userKey, JSON.stringify(cart));
+  }
+
+  function changeQty(index, delta) {
+    cart[index].quantity += delta;
+    if (cart[index].quantity <= 0) cart.splice(index, 1);
+    updateCartPage();
+  }
+
+  function removeItem(index) {
+    cart.splice(index, 1);
+    updateCartPage();
+  }
+
+  updateCartPage();
+</script>
+
+    
+  </body>
+  </html>

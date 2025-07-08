@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout - FoodieHub</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      padding: 2em;
+      background-color: #fdfaf5;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1em;
+    }
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 2em;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 1em;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.75em;
+      margin-top: 0.5em;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      margin-top: 2em;
+      width: 100%;
+      padding: 1em;
+      background-color: #faae2b;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      color: white;
+      font-size: 1.1em;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #e59600;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Checkout 🛒</h2>
+
+  <form id="checkoutForm">
+    <label for="name">Full Name</label>
+    <input type="text" id="name" required>
+
+    <label for="address">Delivery Address</label>
+    <input type="text" id="address" required>
+
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" required>
+
+    <label for="payment">Payment Method</label>
+    <select id="payment" required>
+      <option value="">Select a method</option>
+      <option value="cod">Cash on Delivery</option>
+      <option value="upi">UPI</option>
+      <option value="card">Debit/Credit Card</option>
+    </select>
+
+    <button type="submit">Place Order</button>
+  </form>
+
+  <script>
+    document.getElementById("checkoutForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert("🎉 Order placed successfully!");
+      localStorage.removeItem("cart"); 
+      window.location.href = "index.html"; 
+    });
+  </script>
+
+</body>
+</html>
