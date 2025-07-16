@@ -11,9 +11,9 @@ body {
 
 /* Header Section */
 header {
-  background-color: #1e1e2f;
+  background-color: #171718;
   padding: 10px 20px;
-  color: #ffffff;
+  color:  #faae2b;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -520,7 +520,7 @@ header h1 span {
 
 
 .contact {
-  background-color: #94bcc23e;
+  background-color: #729b9b3e;
   padding: 4em 2em;
   text-align: center;
 }
@@ -614,7 +614,7 @@ header h1 span {
 
 
 .footer {
-  background: linear-gradient(to right, #1e1e2f, #34364a);
+  background: linear-gradient(to right, #171718, #474749);
   color: #f4f4f4;
   padding: 3em 2em 1em;
   font-family: 'Poppins', sans-serif;
